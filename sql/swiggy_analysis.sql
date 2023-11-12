@@ -116,6 +116,8 @@ LIMIT 1;
 
 	
 -- 7. Find out Month over month revenue growth of swiggy
+
+-- Calculating monthly revenue growth by using LAG window ()
 SELECT 
 	month_number,
     month, 
@@ -229,6 +231,7 @@ WHERE row_num=1;
 	
 -- 10. Pull up month over month revenue growth of a restaurant (with ID=2)
 
+-- Retrieving month-wise revenue of restaurant_id 2.
 SELECT
 	MONTH(orders.date) AS month_number,
     MONTHNAME(orders.date) AS month_name,
@@ -238,6 +241,7 @@ FROM
 WHERE r_id=2
 GROUP BY 1,2;
 
+-- Calculating monthly revenue growth by using LAG window ()
 SELECT 
 	month_number,
     month_name,
