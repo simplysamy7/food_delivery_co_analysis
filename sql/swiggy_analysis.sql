@@ -138,26 +138,26 @@ SELECT
 	users.name AS username,
 	orders.user_id AS user_id,
 	order_details.f_id AS food_id,
-    food.f_name AS dish,
-	COUNT(order_details.f_id) AS frequency
+    	food.f_name AS dish_name,
+	COUNT(order_details.f_id) AS order_frequency
 FROM users
 	JOIN orders ON users.user_id=orders.user_id
 	JOIN order_details ON orders.order_id=order_details.order_id
 	JOIN food ON order_details.f_id=food.f_id
 GROUP BY 1,2,3,4
-ORDER BY 1 ASC;
+ORDER BY 5 ASC;
 
 SELECT *
 FROM user_food_freq;
 
 SELECT
 	username,
-    dish AS fave_dish
+    	dish AS fave_dish
 FROM(
 	SELECT 
 		username,
-        dish,
-        ROW_NUMBER() OVER(PARTITION BY username ORDER BY frequency DESC) AS food_rank
+        	dish,
+        	ROW_NUMBER() OVER(PARTITION BY username ORDER BY frequency DESC) AS food_rank
 	FROM 
 		user_food_freq
 	) AS userwise_ranked_foods
@@ -241,7 +241,7 @@ GROUP BY 1,2;
 SELECT 
 	month_number,
     month_name,
-    revenue,
+    revenue as present-month_revenue,
     LAG(revenue) OVER (ORDER BY month_number ASC) AS previous_month_revenue,
     ((revenue-LAG(revenue) OVER (ORDER BY month_number ASC))/ LAG(revenue) OVER (ORDER BY month_number ASC))*100 As monthly_growth
 FROM (
