@@ -169,6 +169,7 @@ WHERE food_rank=1;
 -- 9. Find names of most loyal customers for all restaurants
 
 -- METHOD 1: USING SUBUQERIES AND WINDOW FUNCTION
+-- Step 1: Finding out no of orders placed by each customer to each restaurant. Creating a subquery first.
 SELECT 
 	restaurants.r_id AS restaurant_id,
     restaurants.r_name AS restaurant,
@@ -181,6 +182,7 @@ WHERE row_num=1
 GROUP BY 1,2,4
 ORDER BY 1 ASC;
 
+-- Assigning rank and partitioning restaurant on the basis of no. of orders from each customer
 SELECT * 
 FROM(
 SELECT 
